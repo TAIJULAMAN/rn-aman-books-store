@@ -58,7 +58,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ navigation }) => {
 
                 <View style={styles.form}>
                     <Input
-                        label="Email"
+
                         placeholder="Enter your email"
                         value={email}
                         onChangeText={setEmail}
@@ -67,7 +67,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ navigation }) => {
                     />
 
                     <Input
-                        label="Password"
+
                         placeholder="Enter your password"
                         value={password}
                         onChangeText={setPassword}
@@ -89,22 +89,6 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ navigation }) => {
                     <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
                         <Text style={styles.forgotPassword}>Forgot Password?</Text>
                     </TouchableOpacity>
-
-                    <View style={styles.divider}>
-                        <View style={styles.dividerLine} />
-                        <Text style={styles.dividerText}>OR</Text>
-                        <View style={styles.dividerLine} />
-                    </View>
-
-                    <View style={styles.socialButtons}>
-                        <TouchableOpacity style={styles.socialButton}>
-                            <Text style={styles.socialButtonText}>🔵 Google</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.socialButton}>
-                            <Text style={styles.socialButtonText}>📘 Facebook</Text>
-                        </TouchableOpacity>
-                    </View>
-
                     <View style={styles.signUpContainer}>
                         <Text style={styles.signUpText}>Don't have an account? </Text>
                         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>

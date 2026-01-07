@@ -70,7 +70,6 @@ const VerificationScreen: React.FC<VerificationScreenProps> = ({ navigation }) =
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
             <View style={styles.content}>
-                <Text style={styles.emoji}>✉️</Text>
                 <Text style={styles.title}>Verification</Text>
                 <Text style={styles.subtitle}>
                     Enter the 4-digit code sent to your email

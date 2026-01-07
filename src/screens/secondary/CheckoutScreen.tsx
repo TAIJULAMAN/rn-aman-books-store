@@ -49,21 +49,18 @@ const CheckoutScreen: React.FC<CheckoutScreenProps> = ({ navigation }) => {
                 <Text style={styles.sectionTitle}>Shipping Address</Text>
 
                 <Input
-                    label="Street Address"
                     placeholder="Enter your address"
                     value={address}
                     onChangeText={setAddress}
                 />
 
                 <Input
-                    label="City"
                     placeholder="Enter your city"
                     value={city}
                     onChangeText={setCity}
                 />
 
                 <Input
-                    label="ZIP Code"
                     placeholder="Enter ZIP code"
                     value={zipCode}
                     onChangeText={setZipCode}
