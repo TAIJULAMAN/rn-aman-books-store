@@ -1,0 +1,73 @@
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Animated } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import Colors from '../../constants/Colors';
+import { FontSize, Spacing } from '../../constants/Styles';
+
+type AuthStackParamList = {
+    Splash: undefined;
+    Onboarding: undefined;
+};
+
+interface SplashScreenProps {
+    navigation: StackNavigationProp<AuthStackParamList, 'Splash'>;
+}
+
+const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
+    const [fadeAnim] = useState(new Animated.Value(0));
+
+    useEffect(() => {
+        // Fade in animation
+        Animated.timing(fadeAnim, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: true,
+        }).start();
+
+        // Navigate to onboarding after 2 seconds
+        const timer = setTimeout(() => {
+            navigation.replace('Onboarding');
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    return (
+        <View style={styles.container}>
+            <Animated.View style={[styles.logoContainer, { opacity: fadeAnim }]}>
+                <Text style={styles.logo}>📚</Text>
+                <Text style={styles.title}>Aman Books</Text>
+                <Text style={styles.subtitle}>Your Digital Library</Text>
+            </Animated.View>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: Colors.primary,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    logoContainer: {
+        alignItems: 'center',
+    },
+    logo: {
+        fontSize: 80,
+        marginBottom: Spacing.lg,
+    },
+    title: {
+        fontSize: FontSize.xxxl,
+        fontWeight: '700',
+        color: Colors.white,
+        marginBottom: Spacing.sm,
+    },
+    subtitle: {
+        fontSize: FontSize.md,
+        color: Colors.primaryLight,
+        fontWeight: '500',
+    },
+});
+
+export default SplashScreen;
