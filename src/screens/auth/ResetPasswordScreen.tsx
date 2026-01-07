@@ -59,14 +59,12 @@ const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = ({ navigation })
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
             <View style={styles.content}>
-                <Text style={styles.emoji}>🔑</Text>
                 <Text style={styles.title}>Reset Password</Text>
                 <Text style={styles.subtitle}>
                     Enter your new password
                 </Text>
 
                 <Input
-                    label="New Password"
                     placeholder="Enter new password"
                     value={newPassword}
                     onChangeText={setNewPassword}
@@ -74,7 +72,6 @@ const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = ({ navigation })
                 />
 
                 <Input
-                    label="Confirm Password"
                     placeholder="Confirm new password"
                     value={confirmPassword}
                     onChangeText={setConfirmPassword}

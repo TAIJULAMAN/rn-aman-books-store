@@ -7,16 +7,16 @@ import {
     TextInput,
     ScrollView,
     RefreshControl,
-    TouchableOpacity,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { NavigationProp } from '@react-navigation/native';
 import { Book } from '../../models/Book';
 import MockDataService from '../../services/MockDataService';
 import BookCard from '../../components/books/BookCard';
 import CategoryChip from '../../components/books/CategoryChip';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
-import Colors from '../../constants/Colors';
-import { FontSize, Spacing } from '../../constants/Styles';
+import Colors, { Gradients } from '../../constants/Colors';
+import { FontSize, Spacing, BorderRadius } from '../../constants/Styles';
 
 interface HomeScreenProps {
     navigation: NavigationProp<any>;
@@ -90,22 +90,18 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            {/* Header */}
+            {/* Simplified Header with Search */}
             <View style={styles.header}>
-                <Text style={styles.headerTitle}>Aman Books</Text>
-                <Text style={styles.headerSubtitle}>Discover Your Next Read</Text>
-            </View>
-
-            {/* Search Bar */}
-            <View style={styles.searchContainer}>
-                <Text style={styles.searchIcon}>🔍</Text>
-                <TextInput
-                    style={styles.searchInput}
-                    placeholder="Search books or authors..."
-                    placeholderTextColor={Colors.textMuted}
-                    value={searchQuery}
-                    onChangeText={setSearchQuery}
-                />
+                <View style={styles.searchContainer}>
+                    <Text style={styles.searchIcon}>🔍</Text>
+                    <TextInput
+                        style={styles.searchInput}
+                        placeholder="Search books or authors..."
+                        placeholderTextColor={Colors.textMuted}
+                        value={searchQuery}
+                        onChangeText={setSearchQuery}
+                    />
+                </View>
             </View>
 
             <FlatList
@@ -126,7 +122,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                     <>
                         {/* Categories */}
                         <View style={styles.section}>
-                            <Text style={styles.sectionTitle}>Categories</Text>
+                            <Text style={styles.sectionTitle}>Browse by Genre</Text>
                             <ScrollView
                                 horizontal
                                 showsHorizontalScrollIndicator={false}
@@ -135,8 +131,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                                 {categories.map((category) => (
                                     <CategoryChip
                                         key={category}
-                                        category={category}
-                                        isSelected={selectedCategory === category}
+                                        category={category as any}
+                                        selected={selectedCategory === category}
                                         onPress={() => setSelectedCategory(category)}
                                     />
                                 ))}
@@ -145,15 +141,22 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
                         {/* Popular Books */}
                         <View style={styles.section}>
-                            <Text style={styles.sectionTitle}>
-                                {selectedCategory === 'All' ? 'Popular Books' : selectedCategory}
-                            </Text>
+                            <View style={styles.sectionHeader}>
+                                <Text style={styles.sectionTitle}>
+                                    {selectedCategory === 'All' ? 'Featured Books' : selectedCategory}
+                                </Text>
+                                <Text style={styles.bookCount}>
+                                    {filteredBooks.length} {filteredBooks.length === 1 ? 'book' : 'books'}
+                                </Text>
+                            </View>
                         </View>
                     </>
                 }
                 ListEmptyComponent={
                     <View style={styles.emptyContainer}>
+                        <Text style={styles.emptyEmoji}>📚</Text>
                         <Text style={styles.emptyText}>No books found</Text>
+                        <Text style={styles.emptySubtext}>Try adjusting your search or filters</Text>
                     </View>
                 }
             />
@@ -164,44 +167,51 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.backgroundGray,
     },
     header: {
-        backgroundColor: Colors.primary,
+        backgroundColor: Colors.white,
+        paddingTop: Spacing.xxl + 10,
+        paddingBottom: Spacing.md,
         paddingHorizontal: Spacing.lg,
-        paddingTop: Spacing.xxl + 20,
-        paddingBottom: Spacing.lg,
+        borderBottomWidth: 1,
+        borderBottomColor: Colors.border,
+    },
+    headerContent: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        marginBottom: Spacing.lg,
+    },
+    greeting: {
+        fontSize: FontSize.sm,
+        color: 'rgba(255, 255, 255, 0.8)',
+        marginBottom: 4,
     },
     headerTitle: {
-        fontSize: FontSize.xxl,
+        fontSize: FontSize.xxl + 4,
         fontWeight: '700',
         color: Colors.white,
         marginBottom: Spacing.xs,
     },
     headerSubtitle: {
-        fontSize: FontSize.sm,
-        color: Colors.primaryLight,
+        fontSize: FontSize.md,
+        color: 'rgba(255, 255, 255, 0.9)',
+    },
+    leafEmoji: {
+        fontSize: 48,
     },
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: Colors.white,
-        marginHorizontal: Spacing.lg,
-        marginTop: -Spacing.lg,
-        marginBottom: Spacing.md,
+        backgroundColor: Colors.backgroundGray,
         paddingHorizontal: Spacing.md,
-        borderRadius: 12,
-        shadowColor: Colors.black,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 3,
+        borderRadius: BorderRadius.lg,
+        borderWidth: 1,
+        borderColor: Colors.border,
     },
     searchIcon: {
-        fontSize: 18,
+        fontSize: 20,
         marginRight: Spacing.sm,
     },
     searchInput: {
@@ -212,9 +222,15 @@ const styles = StyleSheet.create({
     },
     listContent: {
         paddingHorizontal: Spacing.lg,
+        paddingTop: Spacing.md,
     },
     section: {
-        marginBottom: Spacing.md,
+        marginBottom: Spacing.lg,
+    },
+    sectionHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     sectionTitle: {
         fontSize: FontSize.lg,
@@ -222,16 +238,31 @@ const styles = StyleSheet.create({
         color: Colors.text,
         marginBottom: Spacing.md,
     },
-    categoriesContainer: {
+    bookCount: {
+        fontSize: FontSize.sm,
+        color: Colors.textMuted,
         marginBottom: Spacing.md,
+    },
+    categoriesContainer: {
+        marginBottom: Spacing.sm,
     },
     emptyContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: Spacing.xxl,
+        paddingVertical: Spacing.xxl * 2,
+    },
+    emptyEmoji: {
+        fontSize: 64,
+        marginBottom: Spacing.md,
     },
     emptyText: {
-        fontSize: FontSize.md,
+        fontSize: FontSize.lg,
+        fontWeight: '600',
+        color: Colors.text,
+        marginBottom: Spacing.xs,
+    },
+    emptySubtext: {
+        fontSize: FontSize.sm,
         color: Colors.textMuted,
     },
 });
