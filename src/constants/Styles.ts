@@ -57,6 +57,29 @@ export const CommonStyles = StyleSheet.create({
         shadowRadius: 8,
         elevation: 5,
     },
+    shadowXL: {
+        shadowColor: Colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 8,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 16,
+        elevation: 8,
+    },
+    // Glassmorphism
+    glassCard: {
+        backgroundColor: Colors.glassLight,
+        borderRadius: BorderRadius.lg,
+        borderWidth: 1,
+        borderColor: 'rgba(255, 255, 255, 0.2)',
+    },
+    glassCardDark: {
+        backgroundColor: Colors.glassDark,
+        borderRadius: BorderRadius.lg,
+        borderWidth: 1,
+        borderColor: 'rgba(255, 255, 255, 0.1)',
+    },
 });
 
 export default CommonStyles;

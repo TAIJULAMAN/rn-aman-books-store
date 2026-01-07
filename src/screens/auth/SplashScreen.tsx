@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import { View, Text, StyleSheet, Animated, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Colors from '../../constants/Colors';
 import { FontSize, Spacing } from '../../constants/Styles';
@@ -17,14 +17,11 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
     const [fadeAnim] = useState(new Animated.Value(0));
 
     useEffect(() => {
-        // Fade in animation
         Animated.timing(fadeAnim, {
             toValue: 1,
             duration: 1000,
             useNativeDriver: true,
         }).start();
-
-        // Navigate to onboarding after 2 seconds
         const timer = setTimeout(() => {
             navigation.replace('Onboarding');
         }, 2000);
@@ -35,8 +32,12 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Animated.View style={[styles.logoContainer, { opacity: fadeAnim }]}>
-                <Text style={styles.logo}>📚</Text>
-                <Text style={styles.title}>Aman Books</Text>
+                <Image
+                    source={require('../../../public/logo.png')}
+                    style={styles.logo}
+                    resizeMode="contain"
+                />
+                <Text style={styles.title}>Cozy Leaf Bookshop</Text>
                 <Text style={styles.subtitle}>Your Digital Library</Text>
             </Animated.View>
         </View>
@@ -54,8 +55,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        fontSize: 80,
-        marginBottom: Spacing.lg,
+        width: 380,
+        height: 380,
+        marginBottom: Spacing.xs,
     },
     title: {
         fontSize: FontSize.xxxl,

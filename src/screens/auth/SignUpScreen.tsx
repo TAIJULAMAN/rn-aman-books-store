@@ -62,21 +62,18 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ navigation }) => {
         >
             <ScrollView contentContainerStyle={styles.scrollContent}>
                 <View style={styles.header}>
-                    <Text style={styles.logo}>📚</Text>
                     <Text style={styles.title}>Create Account</Text>
                     <Text style={styles.subtitle}>Sign up to get started</Text>
                 </View>
 
                 <View style={styles.form}>
                     <Input
-                        label="Full Name"
                         placeholder="Enter your name"
                         value={name}
                         onChangeText={setName}
                     />
 
                     <Input
-                        label="Email"
                         placeholder="Enter your email"
                         value={email}
                         onChangeText={setEmail}
@@ -85,7 +82,6 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ navigation }) => {
                     />
 
                     <Input
-                        label="Password"
                         placeholder="Enter your password"
                         value={password}
                         onChangeText={setPassword}
@@ -93,7 +89,6 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ navigation }) => {
                     />
 
                     <Input
-                        label="Confirm Password"
                         placeholder="Confirm your password"
                         value={confirmPassword}
                         onChangeText={setConfirmPassword}

@@ -82,7 +82,6 @@ const PaymentScreen: React.FC<Props> = ({ navigation, route }) => {
                 <Text style={styles.sectionTitle}>Card Information</Text>
 
                 <Input
-                    label="Card Number"
                     placeholder="1234 5678 9012 3456"
                     value={cardNumber}
                     onChangeText={(text) => setCardNumber(formatCardNumber(text))}
@@ -90,7 +89,6 @@ const PaymentScreen: React.FC<Props> = ({ navigation, route }) => {
                 />
 
                 <Input
-                    label="Cardholder Name"
                     placeholder="John Doe"
                     value={cardName}
                     onChangeText={setCardName}
@@ -99,7 +97,6 @@ const PaymentScreen: React.FC<Props> = ({ navigation, route }) => {
 
                 <View style={styles.row}>
                     <Input
-                        label="Expiry Date"
                         placeholder="MM/YY"
                         value={expiryDate}
                         onChangeText={(text) => setExpiryDate(formatExpiryDate(text))}
@@ -108,7 +105,6 @@ const PaymentScreen: React.FC<Props> = ({ navigation, route }) => {
                     />
 
                     <Input
-                        label="CVV"
                         placeholder="123"
                         value={cvv}
                         onChangeText={(text) => setCvv(text.substring(0, 3))}

@@ -48,14 +48,12 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = ({ navigation 
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
             <View style={styles.content}>
-                <Text style={styles.emoji}>🔒</Text>
                 <Text style={styles.title}>Forgot Password?</Text>
                 <Text style={styles.subtitle}>
                     Enter your email and we'll send you a link to reset your password
                 </Text>
 
                 <Input
-                    label="Email"
                     placeholder="Enter your email"
                     value={email}
                     onChangeText={setEmail}
